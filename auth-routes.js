@@ -11,10 +11,10 @@ const { DynamoDBDocumentClient, GetCommand, PutCommand, ScanCommand } = require(
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({
     region: process.env.AWS_REGION || 'us-west-2',
-    credentials: {
+    credentials: process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY ? {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-    }
+    } : undefined
 });
 
 const dynamodb = DynamoDBDocumentClient.from(dynamoClient);
